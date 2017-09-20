@@ -1,6 +1,6 @@
 package exemplo;
 
-import java.rmi.Naming;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -12,7 +12,7 @@ public class RMIServer extends UnicastRemoteObject implements HelloInterface {
 	}
         @Override
 	public String getData(String text) throws RemoteException { 
-            text = "Ola ...." + text; 
+            text = "Ola. Recebi sua mensagem : " + text; 
             return text;	
         }
         
@@ -20,9 +20,11 @@ public class RMIServer extends UnicastRemoteObject implements HelloInterface {
 		try {
                         Registry reg = LocateRegistry.createRegistry(1099);
 			reg.rebind("Server", new RMIServer());
-			System.out.println("Ola o servidor esta pronto e inicializado, execute o cliente para obter o resultado");
+                        System.out.println("Ola o servidor esta pronto e inicializado, execute o cliente para obter o resultado");
+                        
+                        
 		} catch (Exception e) {
-			System.out.println("Hello Server failed: " + e);
+			System.out.println("Falha no servidor: " + e);
 			e.printStackTrace();
 		}
 	}
